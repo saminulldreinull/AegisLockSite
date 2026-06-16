@@ -6,10 +6,12 @@ if (!app) {
   throw new Error("Missing app root");
 }
 
+const assetBase = import.meta.env.BASE_URL;
+
 app.innerHTML = `
   <header class="site-nav" aria-label="Primary navigation">
     <a class="brand" href="#top" aria-label="AegisLock home">
-      <img src="/shield.svg" alt="" width="34" height="34" />
+      <img src="${assetBase}shield.svg" alt="" width="34" height="34" />
       <span>AegisLock</span>
     </a>
     <nav class="nav-links">
@@ -234,7 +236,7 @@ app.innerHTML = `
 
   <footer class="site-footer">
     <div class="brand footer-brand">
-      <img src="/shield.svg" alt="" width="30" height="30" />
+      <img src="${assetBase}shield.svg" alt="" width="30" height="30" />
       <span>AegisLock</span>
     </div>
     <p>Private Mac app protection. Built for honest security, not impossible promises.</p>
