@@ -14,8 +14,8 @@
   --soft: #dce5f1;
   --blue: #0a84ff;
   --blue-2: #66c7ff;
-  --touch: #ff5f57;
-  --touch-2: #ff2d55;
+  --touch: #d00051;
+  --touch-2: #ff2ef4;
   --green: #32d74b;
   --pink: #ff4fa3;
   --amber: #ff9f0a;
@@ -225,11 +225,14 @@ em {
 
 .touch-accent,
 .touch-inline {
-  color: var(--touch);
+  color: transparent;
+  background: linear-gradient(180deg, var(--touch) 0%, var(--touch) 12%, var(--touch-2) 86%, var(--touch-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .touch-accent {
-  text-shadow: 0 20px 70px rgba(255, 45, 85, 0.32);
+  text-shadow: 0 20px 70px rgba(255, 46, 244, 0.22);
 }
 
 .soft-highlight {
