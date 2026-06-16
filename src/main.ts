@@ -8,6 +8,42 @@ if (!app) {
 
 const assetBase = import.meta.env.BASE_URL;
 
+const screenshotSizes = {
+  protection: [1700, 1258],
+  reports: [1700, 1258],
+  status: [1700, 1258],
+  "protection-detail": [1550, 560],
+  "reports-detail": [1590, 960],
+  "status-detail": [1590, 960],
+  "protected-row": [1510, 130],
+  "unlock-grace": [660, 155],
+  "report-event": [1510, 170],
+  "reports-summary": [1510, 300],
+  "status-grid": [1510, 560],
+} as const;
+
+const screenshot = (
+  name: keyof typeof screenshotSizes,
+  alt: string,
+  priority = false
+) => {
+  const [width, height] = screenshotSizes[name];
+
+  return `
+  <picture>
+    <source srcset="${assetBase}screenshots/${name}.webp" type="image/webp" />
+    <img
+      src="${assetBase}screenshots/${name}.png"
+      alt="${alt}"
+      width="${width}"
+      height="${height}"
+      decoding="async"
+      ${priority ? 'fetchpriority="high"' : ""}
+    />
+  </picture>
+`;
+};
+
 app.innerHTML = `
   <header class="site-nav" aria-label="Primary navigation">
     <a class="brand" href="#top" aria-label="AegisLock home">
@@ -16,6 +52,7 @@ app.innerHTML = `
     </a>
     <nav class="nav-links">
       <a href="#protection">Protection</a>
+      <a href="#reports">Reports</a>
       <a href="#agentic">Agentic Work</a>
       <a href="#pricing">Pricing</a>
       <a href="#security">Security</a>
@@ -27,56 +64,19 @@ app.innerHTML = `
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-scene" aria-hidden="true">
-        <div class="mac-window hero-window protection-window">
-          <div class="traffic"><span></span><span></span><span></span></div>
-          <div class="segmented">
-            <span class="selected">Protection</span><span>Authentication</span><span>Reports</span>
-          </div>
-          <div class="window-title">Protected Apps</div>
-          <div class="search">Search apps</div>
-          <div class="app-row active">
-            <div class="app-icon notion">N</div>
-            <div class="app-meta">
-              <strong>Notion</strong>
-              <span>notion.id</span>
-              <small>/Applications/Notion.app</small>
-            </div>
-            <div class="mode-switch"><b>Safe</b><span>Strict</span></div>
-            <div class="enabled-check"></div>
-          </div>
-          <div class="app-row">
-            <div class="app-icon word">W</div>
-            <div class="app-meta">
-              <strong>Microsoft Word</strong>
-              <span>com.microsoft.Word</span>
-              <small>Safe Hide keeps documents open</small>
-            </div>
-            <div class="mode-switch"><b>Safe</b><span>Strict</span></div>
-            <div class="enabled-check"></div>
-          </div>
-          <div class="grace-box">
-            <strong>Unlock Grace</strong>
-            <div><span class="chip on">While Open</span><span class="chip">5 minutes</span><span class="chip">Until Sleep</span></div>
-          </div>
-        </div>
-
-        <div class="mac-window hero-window status-window">
-          <div class="traffic"><span></span><span></span><span></span></div>
-          <div class="status-grid">
-            <div><i class="good"></i><strong>Protection Active</strong><span>Monitoring protected apps</span></div>
-            <div><i class="good"></i><strong>Access Reports</strong><span>Recent events verified</span></div>
-            <div><i class="warn"></i><strong>Release Signature</strong><span>Developer ID required for public release</span></div>
-            <div><i class="good"></i><strong>Watchdog</strong><span>Installed and running</span></div>
-          </div>
-        </div>
-
-        <div class="approval-popover">
-          <div class="touch-mark"></div>
-          <strong>Allow Agentic Work?</strong>
-          <span>Codex requests temporary access to Notion.</span>
-          <div class="lease">Lease 10 min <b>Max 60 min</b></div>
-        </div>
+      <div class="hero-scene real-showcase" aria-label="AegisLock app screenshots">
+        <figure class="product-shot component-shot protected-row-shot">
+          ${screenshot("protected-row", "AegisLock protected app row showing Notion, Safe mode, Strict mode, Strict Reopen, and enabled state.", true)}
+          <figcaption>Protected app, captured from AegisLock</figcaption>
+        </figure>
+        <figure class="product-shot component-shot report-peek">
+          ${screenshot("report-event", "AegisLock local Access Report event row showing an allowed watchdog event.")}
+          <figcaption>Local report event</figcaption>
+        </figure>
+        <figure class="product-shot component-shot status-peek">
+          ${screenshot("status-grid", "AegisLock Security Status component grid showing active protection, configured apps, reports, login item, and watchdog state.")}
+          <figcaption>Status checks</figcaption>
+        </figure>
       </div>
 
       <div class="hero-copy">
@@ -90,6 +90,7 @@ app.innerHTML = `
           <a class="button secondary" href="#security">Read security model</a>
         </div>
         <div class="hero-proof">
+          <span>Real app captures</span>
           <span>Safe Hide default</span>
           <span>Touch ID gated</span>
           <span>Agent-aware sessions</span>
@@ -106,6 +107,31 @@ app.innerHTML = `
       <span>Finder launch</span>
     </section>
 
+    <section class="section comparison-section" aria-labelledby="comparison-title">
+      <div class="section-heading compact">
+        <p class="eyebrow">Why different</p>
+        <h2 id="comparison-title">Built around data safety, not fake lock screens.</h2>
+        <p>Protection needs to avoid two failures: letting people click through an overlay, or killing work-in-progress apps.</p>
+      </div>
+      <div class="comparison-grid" role="list">
+        <article role="listitem">
+          <span>Weak overlay lockers</span>
+          <strong>Looks locked, app still lives underneath.</strong>
+          <p>Often easy to bypass with Mission Control, app switching, force quit, or Accessibility edge cases.</p>
+        </article>
+        <article role="listitem">
+          <span>Quit-to-lock tools</span>
+          <strong>Stronger interruption, higher data-loss risk.</strong>
+          <p>Bad default for Word, Notion, browsers, editors, and any document workflow with unsaved state.</p>
+        </article>
+        <article role="listitem" class="recommended">
+          <span>AegisLock Safe Hide</span>
+          <strong>Hide first, authenticate before return.</strong>
+          <p>Default path protects visible app surfaces without treating every lock as a destructive close.</p>
+        </article>
+      </div>
+    </section>
+
     <section id="protection" class="section product-section">
       <div class="section-heading">
         <p class="eyebrow">Protection model</p>
@@ -113,17 +139,15 @@ app.innerHTML = `
         <p>Most app lockers quit apps or place a weak overlay on top. AegisLock protects the visible app surface without destroying unsaved work.</p>
       </div>
       <div class="feature-split">
-        <div class="demo-panel safe-panel">
-          <div class="mini-toolbar"><span></span><span></span><span></span><b>Safe Hide</b></div>
-          <div class="flow">
-            <div class="flow-step">Protected app opens</div>
-            <div class="flow-arrow"></div>
-            <div class="flow-step hidden-step">App hidden before content is useful</div>
-            <div class="flow-arrow"></div>
-            <div class="flow-step auth-step">Touch ID</div>
-            <div class="flow-arrow"></div>
-            <div class="flow-step">App shown again</div>
-          </div>
+        <div class="protection-components" aria-label="AegisLock protection UI components">
+          <figure class="demo-panel real-panel">
+            ${screenshot("protected-row", "Protected app row for Notion with Safe, Strict, Strict Reopen, and enabled state.")}
+            <figcaption>Per-app protection mode.</figcaption>
+          </figure>
+          <figure class="demo-panel real-panel grace-panel">
+            ${screenshot("unlock-grace", "Unlock Grace segmented control with While Open, five minutes, fifteen minutes, and Until sleep options.")}
+            <figcaption>Unlock duration control.</figcaption>
+          </figure>
         </div>
         <div class="copy-stack">
           <article>
@@ -142,45 +166,34 @@ app.innerHTML = `
       </div>
     </section>
 
-    <section class="section reports-section">
+    <section id="reports" class="section reports-section">
       <div class="section-heading compact">
         <p class="eyebrow">Access Reports</p>
         <h2>Local evidence, not surveillance.</h2>
         <p>AegisLock records security events locally with a hash chain. No document names, window titles, screenshots, or typed content.</p>
       </div>
-      <div class="reports-browser" aria-label="Access reports interface preview">
-        <div class="reports-top">
-          <span class="search-pill">Search reports</span>
-          <span class="filter-pill active">All</span>
-          <span class="filter-pill">Locks</span>
-          <span class="filter-pill">Agentic</span>
-          <span class="filter-pill">Warnings</span>
-        </div>
-        <div class="report-line"><i class="good"></i><strong>App Unlocked</strong><span>Notion</span><time>19:08</time></div>
-        <div class="report-line"><i class="warn"></i><strong>Agentic Requested</strong><span>Codex, Notion</span><time>19:04</time></div>
-        <div class="report-line"><i class="good"></i><strong>Watchdog Started</strong><span>Installed and running</span><time>18:56</time></div>
-        <div class="report-line"><i class="good"></i><strong>Protection Mode Changed</strong><span>Safe Hide</span><time>18:44</time></div>
+      <div class="reports-showcase" aria-label="Access reports interface preview">
+        <figure class="reports-browser real-panel dark-real-panel">
+          ${screenshot("reports-summary", "Access Reports summary cards with local event count, verified integrity, local storage, search, and filter.")}
+          <figcaption>Filters, event count, and integrity state.</figcaption>
+        </figure>
+        <figure class="reports-browser real-panel dark-real-panel event-panel">
+          ${screenshot("report-event", "Access Reports verified local event row with event type, result, actor, app, and hash prefix.")}
+          <figcaption>Verified event row from the local audit trail.</figcaption>
+        </figure>
       </div>
     </section>
 
     <section id="agentic" class="section agent-section">
-      <div class="agent-visual">
-        <div class="agent-card">
-          <span class="label">Local request</span>
-          <code>127.0.0.1:48731</code>
-          <p>Bundle IDs, reason, max time.</p>
-        </div>
-        <div class="agent-line"></div>
+      <div class="agent-visual agent-real">
+        <figure class="real-panel status-panel-shot">
+          ${screenshot("status-grid", "Security Status cards showing active protection, protected app count, settings integrity, access reports, launch at login, watchdog, and backup.")}
+          <figcaption>Status cards from the real app.</figcaption>
+        </figure>
         <div class="agent-card highlighted">
-          <span class="label">Native approval</span>
-          <strong>Touch ID required</strong>
-          <p>No silent agent bypass.</p>
-        </div>
-        <div class="agent-line"></div>
-        <div class="agent-card">
-          <span class="label">Lease active</span>
-          <code>heartbeat + max cap</code>
-          <p>Expires if agent stops.</p>
+          <span class="label">Agentic Work</span>
+          <strong>Approval stays native</strong>
+          <p>Agents request a time-boxed lease. You approve with system authentication. No silent global unlock.</p>
         </div>
       </div>
       <div class="section-heading left">
@@ -248,7 +261,7 @@ app.innerHTML = `
   </footer>
 `;
 
-const heroWindow = document.querySelector<HTMLElement>(".protection-window");
+const heroWindow = document.querySelector<HTMLElement>(".protected-row-shot");
 
 window.addEventListener("pointermove", (event) => {
   if (!heroWindow || window.matchMedia("(max-width: 760px)").matches) {
