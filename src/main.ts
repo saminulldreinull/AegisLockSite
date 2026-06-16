@@ -8,42 +8,6 @@ if (!app) {
 
 const assetBase = import.meta.env.BASE_URL;
 
-const screenshotSizes = {
-  protection: [1700, 1258],
-  reports: [1700, 1258],
-  status: [1700, 1258],
-  "protection-detail": [1550, 560],
-  "reports-detail": [1590, 960],
-  "status-detail": [1590, 960],
-  "protected-row": [1510, 130],
-  "unlock-grace": [660, 155],
-  "report-event": [1510, 170],
-  "reports-summary": [1510, 300],
-  "status-grid": [1510, 560],
-} as const;
-
-const screenshot = (
-  name: keyof typeof screenshotSizes,
-  alt: string,
-  priority = false
-) => {
-  const [width, height] = screenshotSizes[name];
-
-  return `
-  <picture>
-    <source srcset="${assetBase}screenshots/${name}.webp" type="image/webp" />
-    <img
-      src="${assetBase}screenshots/${name}.png"
-      alt="${alt}"
-      width="${width}"
-      height="${height}"
-      decoding="async"
-      ${priority ? 'fetchpriority="high"' : ""}
-    />
-  </picture>
-`;
-};
-
 app.innerHTML = `
   <header class="site-nav" aria-label="Primary navigation">
     <a class="brand" href="#top" aria-label="AegisLock home">
@@ -51,199 +15,208 @@ app.innerHTML = `
       <span>AegisLock</span>
     </a>
     <nav class="nav-links">
+      <a href="#how">How it works</a>
       <a href="#protection">Protection</a>
       <a href="#reports">Reports</a>
-      <a href="#agentic">Agentic Work</a>
-      <a href="#pricing">Pricing</a>
       <a href="#security">Security</a>
     </nav>
     <a class="nav-cta" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">
-      GitHub
+      Download beta
     </a>
   </header>
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-scene real-showcase" aria-label="AegisLock app screenshots">
-        <figure class="product-shot component-shot protected-row-shot">
-          ${screenshot("protected-row", "AegisLock protected app row showing Notion, Safe mode, Strict mode, Strict Reopen, and enabled state.", true)}
-          <figcaption>Protected app, captured from AegisLock</figcaption>
-        </figure>
-        <figure class="product-shot component-shot report-peek">
-          ${screenshot("report-event", "AegisLock local Access Report event row showing an allowed watchdog event.")}
-          <figcaption>Local report event</figcaption>
-        </figure>
-        <figure class="product-shot component-shot status-peek">
-          ${screenshot("status-grid", "AegisLock Security Status component grid showing active protection, configured apps, reports, login item, and watchdog state.")}
-          <figcaption>Status checks</figcaption>
-        </figure>
-      </div>
-
       <div class="hero-copy">
         <p class="eyebrow">Private app protection for macOS</p>
-        <h1 id="hero-title">Keep private apps private on an unlocked Mac.</h1>
+        <h1 id="hero-title">Touch ID before private apps reappear.</h1>
         <p class="hero-lede">
-          AegisLock hides protected apps before access, unlocks with Touch ID or Mac password, and records local access reports without touching your documents.
+          AegisLock hides protected apps in an unlocked Mac session, asks for system authentication before return, and keeps a local audit trail without reading your documents.
         </p>
         <div class="hero-actions">
           <a class="button primary" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">Download beta</a>
-          <a class="button secondary" href="#security">Read security model</a>
-        </div>
-        <div class="hero-proof">
-          <span>Real app captures</span>
-          <span>Safe Hide default</span>
-          <span>Touch ID gated</span>
-          <span>Agent-aware sessions</span>
+          <a class="button secondary" href="#security">Security model</a>
         </div>
       </div>
-    </section>
 
-    <section class="logo-strip" aria-label="Core workflows">
-      <span>Word</span>
-      <span>Notion</span>
-      <span>Chrome</span>
-      <span>Slack</span>
-      <span>Codex</span>
-      <span>Finder launch</span>
-    </section>
+      <div class="hero-demo" aria-label="AegisLock unlock product demo">
+        <div class="mac-stage">
+          <div class="mac-toolbar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <b>Notion</b>
+          </div>
+          <div class="private-app">
+            <div class="sidebar-lines" aria-hidden="true">
+              <i></i><i></i><i></i><i></i>
+            </div>
+            <div class="document-lines" aria-hidden="true">
+              <b></b><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="privacy-veil">
+            <div class="veil-badge">
+              <img src="${assetBase}shield.svg" alt="" width="28" height="28" />
+              <span>Hidden by AegisLock</span>
+            </div>
+          </div>
+          <div class="auth-sheet">
+            <div class="touch-mark" aria-hidden="true"></div>
+            <div>
+              <span>Unlock Notion</span>
+              <strong>Touch ID or Mac password required</strong>
+              <p>Safe Hide keeps the app alive. Nothing quits.</p>
+            </div>
+            <button type="button">Authenticate</button>
+          </div>
+        </div>
 
-    <section class="section comparison-section" aria-labelledby="comparison-title">
-      <div class="section-heading compact">
-        <p class="eyebrow">Why different</p>
-        <h2 id="comparison-title">Built around data safety, not fake lock screens.</h2>
-        <p>Protection needs to avoid two failures: letting people click through an overlay, or killing work-in-progress apps.</p>
+        <div class="event-card">
+          <span>Access Report</span>
+          <strong>Allowed by system auth</strong>
+          <p>Local hash-chain event. No document names. No screenshots.</p>
+        </div>
       </div>
-      <div class="comparison-grid" role="list">
-        <article role="listitem">
-          <span>Weak overlay lockers</span>
-          <strong>Looks locked, app still lives underneath.</strong>
-          <p>Often easy to bypass with Mission Control, app switching, force quit, or Accessibility edge cases.</p>
-        </article>
-        <article role="listitem">
-          <span>Quit-to-lock tools</span>
-          <strong>Stronger interruption, higher data-loss risk.</strong>
-          <p>Bad default for Word, Notion, browsers, editors, and any document workflow with unsaved state.</p>
-        </article>
-        <article role="listitem" class="recommended">
-          <span>AegisLock Safe Hide</span>
-          <strong>Hide first, authenticate before return.</strong>
-          <p>Default path protects visible app surfaces without treating every lock as a destructive close.</p>
-        </article>
-      </div>
     </section>
 
-    <section id="protection" class="section product-section">
+    <section class="proof-strip" aria-label="AegisLock core properties">
+      <span>Touch ID or Mac password</span>
+      <span>No quit by default</span>
+      <span>Local-only reports</span>
+      <span>Agentic Work leases</span>
+    </section>
+
+    <section id="how" class="section flow-section">
       <div class="section-heading">
-        <p class="eyebrow">Protection model</p>
-        <h2>Strict when needed. Safe by default.</h2>
-        <p>Most app lockers quit apps or place a weak overlay on top. AegisLock protects the visible app surface without destroying unsaved work.</p>
+        <p class="eyebrow">How it works</p>
+        <h2>One simple flow. No fake lock screen.</h2>
       </div>
-      <div class="feature-split">
-        <div class="protection-components" aria-label="AegisLock protection UI components">
-          <figure class="demo-panel real-panel">
-            ${screenshot("protected-row", "Protected app row for Notion with Safe, Strict, Strict Reopen, and enabled state.")}
-            <figcaption>Per-app protection mode.</figcaption>
-          </figure>
-          <figure class="demo-panel real-panel grace-panel">
-            ${screenshot("unlock-grace", "Unlock Grace segmented control with While Open, five minutes, fifteen minutes, and Until sleep options.")}
-            <figcaption>Unlock duration control.</figcaption>
-          </figure>
-        </div>
-        <div class="copy-stack">
-          <article>
-            <h3>Safe Hide</h3>
-            <p>Best for Word, Notion, Pages, Excel, browsers, and anything with unsaved work. Lock Now hides apps, not quits them.</p>
-          </article>
-          <article>
-            <h3>Strict Reopen</h3>
-            <p>Optional per app. It quits and reopens only where data loss risk is acceptable. Stronger interruption, worse for document workflows.</p>
-          </article>
-          <article>
-            <h3>Grace control</h3>
-            <p>Choose whether unlock lasts while the app is open, for a few minutes, or until sleep. Every sensitive change requires authentication.</p>
-          </article>
-        </div>
+      <div class="flow-grid">
+        <article>
+          <span>01</span>
+          <h3>Choose private apps</h3>
+          <p>Add Notion, Word, Chrome, Slack, or any app that should not be visible during shared-desk moments.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Lock without data loss</h3>
+          <p>Safe Hide removes the app from view without force quitting it, so open work stays intact.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Authenticate to reveal</h3>
+          <p>Touch ID or Mac password gates return. Sensitive setting changes require auth too.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="protection" class="section protection-section">
+      <div class="section-heading left">
+        <p class="eyebrow">Protection model</p>
+        <h2>Safe Hide is the default because your work matters.</h2>
+        <p>Most app lockers choose a bad tradeoff: a weak overlay or a destructive quit. AegisLock makes non-destructive protection the default and keeps stricter behavior opt-in.</p>
+      </div>
+      <div class="mode-grid">
+        <article class="mode-card recommended">
+          <div class="mode-top">
+            <span>Recommended</span>
+            <strong>Safe Hide</strong>
+          </div>
+          <p>Best for documents, browsers, notes, editors, and any app with unsaved state.</p>
+          <ul>
+            <li>Hides app surface during lock</li>
+            <li>Does not quit protected apps</li>
+            <li>Unlock grace controls re-auth timing</li>
+          </ul>
+        </article>
+        <article class="mode-card">
+          <div class="mode-top">
+            <span>Optional</span>
+            <strong>Strict Reopen</strong>
+          </div>
+          <p>For apps where restarting is acceptable and you want stronger interruption.</p>
+          <ul>
+            <li>Per-app opt-in only</li>
+            <li>Clear data-loss warning</li>
+            <li>Still gated by system auth</li>
+          </ul>
+        </article>
+        <article class="mode-card">
+          <div class="mode-top">
+            <span>Control</span>
+            <strong>Unlock Grace</strong>
+          </div>
+          <p>Decide whether access lasts while open, for a short window, or until sleep.</p>
+          <div class="segmented-demo" aria-hidden="true">
+            <b>While Open</b><span>5 min</span><span>15 min</span><span>Sleep</span>
+          </div>
+        </article>
       </div>
     </section>
 
     <section id="reports" class="section reports-section">
-      <div class="section-heading compact">
+      <div class="reports-copy">
         <p class="eyebrow">Access Reports</p>
-        <h2>Local evidence, not surveillance.</h2>
-        <p>AegisLock records security events locally with a hash chain. No document names, window titles, screenshots, or typed content.</p>
+        <h2>Evidence when access happens. Privacy when it does not.</h2>
+        <p>AegisLock records security events locally with integrity checks. It avoids document names, window titles, typed content, and screenshots.</p>
       </div>
-      <div class="reports-showcase" aria-label="Access reports interface preview">
-        <figure class="reports-browser real-panel dark-real-panel">
-          ${screenshot("reports-summary", "Access Reports summary cards with local event count, verified integrity, local storage, search, and filter.")}
-          <figcaption>Filters, event count, and integrity state.</figcaption>
-        </figure>
-        <figure class="reports-browser real-panel dark-real-panel event-panel">
-          ${screenshot("report-event", "Access Reports verified local event row with event type, result, actor, app, and hash prefix.")}
-          <figcaption>Verified event row from the local audit trail.</figcaption>
-        </figure>
+      <div class="audit-panel" aria-label="Access report preview">
+        <div class="audit-header">
+          <div>
+            <span>Local audit trail</span>
+            <strong>Verified</strong>
+          </div>
+          <button type="button">Export</button>
+        </div>
+        <div class="audit-row allowed">
+          <i></i>
+          <div><b>Notion revealed</b><span>System authentication approved</span></div>
+          <time>14:29</time>
+        </div>
+        <div class="audit-row denied">
+          <i></i>
+          <div><b>Settings change blocked</b><span>Authentication cancelled</span></div>
+          <time>14:21</time>
+        </div>
+        <div class="audit-row allowed">
+          <i></i>
+          <div><b>Agentic Work lease started</b><span>Codex, 30 minute scoped session</span></div>
+          <time>13:58</time>
+        </div>
       </div>
     </section>
 
     <section id="agentic" class="section agent-section">
-      <div class="agent-visual agent-real">
-        <figure class="real-panel status-panel-shot">
-          ${screenshot("status-grid", "Security Status cards showing active protection, protected app count, settings integrity, access reports, launch at login, watchdog, and backup.")}
-          <figcaption>Status cards from the real app.</figcaption>
-        </figure>
-        <div class="agent-card highlighted">
-          <span class="label">Agentic Work</span>
-          <strong>Approval stays native</strong>
-          <p>Agents request a time-boxed lease. You approve with system authentication. No silent global unlock.</p>
-        </div>
+      <div class="agent-card">
+        <span>Agentic Work</span>
+        <strong>Automation can ask. It cannot silently bypass.</strong>
+        <p>Local agents request a scoped, time-boxed session for specific protected apps. You approve with system authentication. A hard maximum prevents open-ended access.</p>
       </div>
+      <div class="lease-card" aria-label="Agentic Work approval preview">
+        <div><b>Codex requests access</b><span>Notion, Safari</span></div>
+        <p>Reason: continue current goal while protection stays active.</p>
+        <div class="lease-actions"><button type="button">Deny</button><button type="button">Approve with Touch ID</button></div>
+      </div>
+    </section>
+
+    <section id="security" class="section security-section">
       <div class="section-heading left">
-        <p class="eyebrow">Agentic Work</p>
-        <h2>Let trusted automation work without turning protection off.</h2>
-        <p>Codex or another local agent can request temporary access to specific protected apps. You approve once with Touch ID, then AegisLock enforces a short renewable lease with a hard maximum.</p>
-      </div>
-    </section>
-
-    <section id="security" class="section security-band">
-      <div class="security-copy">
         <p class="eyebrow">Security boundary</p>
-        <h2>Honest protection for the risk it actually controls.</h2>
-        <p>
-          AegisLock protects against casual local access in an unlocked user session. It does not claim to stop administrators, root users, malware, Recovery Mode, or anyone who can remove the app and its LaunchAgent.
-        </p>
+        <h2>Strong for casual access. Honest about system limits.</h2>
       </div>
-      <div class="boundary-list">
-        <div><b>Protects</b><span>Shared desk moments, accidental opens, app switching, weak overlay bypasses.</span></div>
-        <div><b>Does not protect</b><span>Admin/root attacks, malware, forensic access, remote shell under same user.</span></div>
-        <div><b>Hardening</b><span>Watchdog, delete restore, signed settings, local reports, notarized release path.</span></div>
+      <div class="security-grid">
+        <article><span>Protects</span><p>Shared desks, accidental opens, app switching, and weak overlay bypasses.</p></article>
+        <article><span>Does not protect</span><p>Administrators, root users, malware, Recovery Mode, or forensic access.</p></article>
+        <article><span>Hardening</span><p>Signed settings, auth-gated changes, watchdog restore, local hash-chain reports.</p></article>
       </div>
     </section>
 
-    <section id="pricing" class="section pricing-section">
-      <div class="section-heading">
-        <p class="eyebrow">Launch plan</p>
-        <h2>Start transparent. Charge when trust is earned.</h2>
-        <p>The beta should be free while signing, notarization, and multi-Mac QA finish. Paid plans make sense after Developer ID release.</p>
+    <section id="pricing" class="section beta-section">
+      <div>
+        <p class="eyebrow">Beta</p>
+        <h2>Free while trust is still being earned.</h2>
+        <p>The public beta should stay free until Developer ID signing, notarization, and broader Mac QA are complete. Paid plans make sense after that.</p>
       </div>
-      <div class="pricing-grid">
-        <article class="price-card">
-          <span class="tier">Beta</span>
-          <strong>Free</strong>
-          <p>Public testing, reports, Safe Hide, Agentic Work, honest limits.</p>
-          <a href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">Get beta</a>
-        </article>
-        <article class="price-card featured">
-          <span class="tier">Pro</span>
-          <strong>29 EUR</strong>
-          <p>Early lifetime license after Developer ID signing and notarized release.</p>
-          <a href="#top">Coming after notarization</a>
-        </article>
-        <article class="price-card">
-          <span class="tier">Team</span>
-          <strong>Custom</strong>
-          <p>Policy defaults, deployment docs, team support, and audit export workflow.</p>
-          <a href="mailto:hello@aegislock.app">Contact</a>
-        </article>
-      </div>
+      <a class="button primary" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">Get AegisLock beta</a>
     </section>
   </main>
 
@@ -252,23 +225,23 @@ app.innerHTML = `
       <img src="${assetBase}shield.svg" alt="" width="30" height="30" />
       <span>AegisLock</span>
     </div>
-    <p>Private Mac app protection. Built for honest security, not impossible promises.</p>
+    <p>Private Mac app protection. Honest security model. Local-first reports.</p>
     <div>
       <a href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">GitHub</a>
       <a href="#security">Security</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#pricing">Beta</a>
     </div>
   </footer>
 `;
 
-const heroWindow = document.querySelector<HTMLElement>(".protected-row-shot");
+const demo = document.querySelector<HTMLElement>(".hero-demo");
 
 window.addEventListener("pointermove", (event) => {
-  if (!heroWindow || window.matchMedia("(max-width: 760px)").matches) {
+  if (!demo || window.matchMedia("(max-width: 860px)").matches) {
     return;
   }
 
   const x = (event.clientX / window.innerWidth - 0.5) * 10;
   const y = (event.clientY / window.innerHeight - 0.5) * 8;
-  heroWindow.style.transform = `translate3d(${x}px, ${y}px, 0) rotateX(${2 - y * 0.08}deg) rotateY(${-6 + x * 0.1}deg)`;
+  demo.style.transform = `translate3d(${x}px, ${y}px, 0)`;
 });
