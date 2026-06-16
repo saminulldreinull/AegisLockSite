@@ -18,10 +18,11 @@ app.innerHTML = `
       <a href="#how">How it works</a>
       <a href="#protection">Protection</a>
       <a href="#reports">Reports</a>
+      <a href="#pricing">Pricing</a>
       <a href="#security">Security</a>
     </nav>
     <a class="nav-cta" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">
-      Download beta
+      Download for Mac
     </a>
   </header>
 
@@ -29,12 +30,12 @@ app.innerHTML = `
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">Private app protection for macOS</p>
-        <h1 id="hero-title">Touch ID before private apps reappear.</h1>
+        <h1 id="hero-title"><span class="touch-accent">Touch ID</span> before private apps reappear.</h1>
         <p class="hero-lede">
-          AegisLock hides protected apps in an unlocked Mac session, asks for system authentication before return, and keeps a local audit trail without reading your documents.
+          AegisLock <em>hides protected apps</em> in an unlocked Mac session, asks for system authentication before return, and keeps a <em>local audit trail</em> without reading your documents.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">Download beta</a>
+          <a class="button primary" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">Download for Mac</a>
           <a class="button secondary" href="#security">Security model</a>
         </div>
       </div>
@@ -60,21 +61,41 @@ app.innerHTML = `
             </div>
           </div>
           <div class="auth-sheet">
-            <div class="touch-mark" aria-hidden="true"></div>
+            <div class="touch-mark" aria-hidden="true">
+              <svg viewBox="0 0 64 64" focusable="false">
+                <defs>
+                  <linearGradient id="touchGradient" x1="10" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#ff8a5c" />
+                    <stop offset="0.48" stop-color="#ff5f57" />
+                    <stop offset="1" stop-color="#ff2d55" />
+                  </linearGradient>
+                </defs>
+                <path d="M17.5 28.5c0-8.1 6.5-14.6 14.5-14.6s14.5 6.5 14.5 14.6" />
+                <path d="M12.3 32.5c0-11 8.8-19.9 19.7-19.9s19.7 8.9 19.7 19.9" />
+                <path d="M22.6 31.7c0-5.3 4.2-9.6 9.4-9.6s9.4 4.3 9.4 9.6" />
+                <path d="M27.6 36.5c0-2.5 2-4.6 4.4-4.6s4.4 2.1 4.4 4.6c0 6.2-2.1 10.9-5 15.1" />
+                <path d="M20.3 39.2c.7 6.4 4.2 11.3 8.9 14.2" />
+                <path d="M43.8 39.1c-.5 5.1-1.9 9.6-4.8 14.2" />
+                <path d="M15.4 39.2c1.1 9.2 6.2 16.2 13.3 19.6" />
+                <path d="M48.6 39.1c-.6 7.7-3 14.2-7.5 19.6" />
+                <path d="M32 7.5c13.4 0 24.3 10.8 24.3 24.2" />
+                <path d="M7.7 31.7C7.7 18.3 18.6 7.5 32 7.5" />
+              </svg>
+            </div>
             <div>
               <span>Unlock Notion</span>
-              <strong>Touch ID or Mac password required</strong>
-              <p>Safe Hide keeps the app alive. Nothing quits.</p>
+              <strong><span class="touch-inline">Touch ID</span> or Mac password required</strong>
+              <p><em>Safe Hide</em> keeps the app alive. Nothing quits.</p>
             </div>
             <button type="button">Authenticate</button>
           </div>
         </div>
 
-        <div class="event-card">
-          <span>Access Report</span>
-          <strong>Allowed by system auth</strong>
-          <p>Local hash-chain event. No document names. No screenshots.</p>
-        </div>
+      <div class="event-card">
+        <span>Access Report</span>
+        <strong>Allowed by system auth</strong>
+        <p><em>Local hash-chain event.</em> No document names. No screenshots.</p>
+      </div>
       </div>
     </section>
 
@@ -88,7 +109,7 @@ app.innerHTML = `
     <section id="how" class="section flow-section">
       <div class="section-heading">
         <p class="eyebrow">How it works</p>
-        <h2>One simple flow. No fake lock screen.</h2>
+        <h2>One simple flow. <span class="soft-highlight">No fake lock screen.</span></h2>
       </div>
       <div class="flow-grid">
         <article>
@@ -112,7 +133,7 @@ app.innerHTML = `
     <section id="protection" class="section protection-section">
       <div class="section-heading left">
         <p class="eyebrow">Protection model</p>
-        <h2>Safe Hide is the default because your work matters.</h2>
+        <h2><span class="soft-highlight">Safe Hide</span> is the default because your work matters.</h2>
         <p>Most app lockers choose a bad tradeoff: a weak overlay or a destructive quit. AegisLock makes non-destructive protection the default and keeps stricter behavior opt-in.</p>
       </div>
       <div class="mode-grid">
@@ -147,7 +168,7 @@ app.innerHTML = `
           </div>
           <p>Decide whether access lasts while open, for a short window, or until sleep.</p>
           <div class="segmented-demo" aria-hidden="true">
-            <b>While Open</b><span>5 min</span><span>15 min</span><span>Sleep</span>
+            <b>While open</b><span>5 min</span><span>15 min</span><span>Sleep</span>
           </div>
         </article>
       </div>
@@ -156,7 +177,7 @@ app.innerHTML = `
     <section id="reports" class="section reports-section">
       <div class="reports-copy">
         <p class="eyebrow">Access Reports</p>
-        <h2>Evidence when access happens. Privacy when it does not.</h2>
+        <h2>Evidence when access happens. <span class="soft-highlight">Privacy when it does not.</span></h2>
         <p>AegisLock records security events locally with integrity checks. It avoids document names, window titles, typed content, and screenshots.</p>
       </div>
       <div class="audit-panel" aria-label="Access report preview">
@@ -210,13 +231,18 @@ app.innerHTML = `
       </div>
     </section>
 
-    <section id="pricing" class="section beta-section">
+    <section id="pricing" class="section pricing-section">
       <div>
-        <p class="eyebrow">Beta</p>
-        <h2>Free while trust is still being earned.</h2>
-        <p>The public beta should stay free until Developer ID signing, notarization, and broader Mac QA are complete. Paid plans make sense after that.</p>
+        <p class="eyebrow">Pricing</p>
+        <h2>One Mac utility. <span class="soft-highlight">One-time purchase.</span></h2>
+        <p>Simple ownership for a Mac utility: one personal license, no subscription, core protection included, and updates for the current major version.</p>
       </div>
-      <a class="button primary" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">Get AegisLock beta</a>
+      <div class="price-panel">
+        <span>Personal</span>
+        <strong>29 EUR</strong>
+        <p>One-time license. Includes core protection, local reports, Agentic Work, and updates for the current major version.</p>
+        <a class="button primary" href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">Download for Mac</a>
+      </div>
     </section>
   </main>
 
@@ -229,7 +255,7 @@ app.innerHTML = `
     <div>
       <a href="https://github.com/saminulldreinull/AegisLock" target="_blank" rel="noreferrer">GitHub</a>
       <a href="#security">Security</a>
-      <a href="#pricing">Beta</a>
+      <a href="#pricing">Pricing</a>
     </div>
   </footer>
 `;

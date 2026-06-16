@@ -14,6 +14,8 @@
   --soft: #dce5f1;
   --blue: #0a84ff;
   --blue-2: #66c7ff;
+  --touch: #ff5f57;
+  --touch-2: #ff2d55;
   --green: #32d74b;
   --pink: #ff4fa3;
   --amber: #ff9f0a;
@@ -216,10 +218,28 @@ h3 {
   line-height: 1.15;
 }
 
+em {
+  color: #ffffff;
+  font-style: italic;
+}
+
+.touch-accent,
+.touch-inline {
+  color: var(--touch);
+}
+
+.touch-accent {
+  text-shadow: 0 20px 70px rgba(255, 45, 85, 0.32);
+}
+
+.soft-highlight {
+  color: #8ec5ff;
+}
+
 .hero-lede,
 .section-heading p,
 .reports-copy p,
-.beta-section p {
+.pricing-section p {
   color: #c3cedc;
   font-size: 19px;
   line-height: 1.58;
@@ -414,11 +434,29 @@ h3 {
 .touch-mark {
   width: 52px;
   height: 52px;
-  border: 2px solid rgba(102, 199, 255, 0.9);
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 95, 87, 0.38);
   border-radius: 18px;
   background:
-    repeating-radial-gradient(circle at center, transparent 0, transparent 5px, rgba(102, 199, 255, 0.54) 6px, transparent 7px),
-    rgba(10, 132, 255, 0.12);
+    radial-gradient(circle at 40% 24%, rgba(255, 204, 112, 0.18), transparent 30%),
+    rgba(255, 45, 85, 0.1);
+  box-shadow:
+    0 0 0 6px rgba(255, 45, 85, 0.08),
+    inset 0 0 28px rgba(255, 45, 85, 0.1);
+}
+
+.touch-mark svg {
+  width: 38px;
+  height: 38px;
+}
+
+.touch-mark path {
+  fill: none;
+  stroke: url("#touchGradient");
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .auth-sheet span,
@@ -577,12 +615,17 @@ h3 {
 }
 
 .protection-section .eyebrow,
-.beta-section .eyebrow {
+.pricing-section .eyebrow {
+  color: #0a69c7;
+}
+
+.protection-section .soft-highlight,
+.pricing-section .soft-highlight {
   color: #0a69c7;
 }
 
 .protection-section .section-heading p,
-.beta-section p {
+.pricing-section p {
   color: #526071;
 }
 
@@ -649,21 +692,25 @@ h3 {
 .segmented-demo {
   min-height: 44px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(112px, 1.2fr) repeat(3, minmax(58px, 0.8fr));
   align-items: center;
+  gap: 4px;
   padding: 5px;
   border-radius: 12px;
   background: #eef2f7;
   color: #596575;
-  font-weight: 780;
+  font-size: clamp(13px, 1.15vw, 15px);
+  font-weight: 800;
 }
 
 .segmented-demo b,
 .segmented-demo span {
   min-width: 0;
-  padding: 9px 8px;
+  overflow: hidden;
+  padding: 9px 6px;
   border-radius: 9px;
   text-align: center;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -851,22 +898,55 @@ h3 {
   margin-bottom: 0;
 }
 
-.beta-section {
+.pricing-section {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 32px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.55fr);
+  gap: 42px;
   align-items: center;
   background: #f6f8fb;
   color: #0c1118;
 }
 
-.beta-section div {
+.pricing-section div {
   max-width: 740px;
 }
 
-.beta-section p {
+.pricing-section p {
   max-width: 640px;
   margin-bottom: 0;
+}
+
+.price-panel {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 28px;
+  border: 1px solid rgba(12, 18, 27, 0.1);
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 24px 80px rgba(20, 28, 42, 0.12);
+}
+
+.price-panel span {
+  color: #0a69c7;
+  font-size: 12px;
+  font-weight: 840;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.price-panel strong {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.price-panel p {
+  margin-bottom: 4px;
+  color: #526071;
+}
+
+.price-panel .button {
+  width: 100%;
 }
 
 .site-footer {
@@ -925,11 +1005,11 @@ h3 {
   .security-grid,
   .reports-section,
   .agent-section,
-  .beta-section {
+  .pricing-section {
     grid-template-columns: 1fr;
   }
 
-  .beta-section .button {
+  .pricing-section .button {
     justify-self: start;
   }
 }
@@ -961,7 +1041,7 @@ h3 {
   .hero-lede,
   .section-heading p,
   .reports-copy p,
-  .beta-section p {
+  .pricing-section p {
     font-size: 17px;
   }
 
