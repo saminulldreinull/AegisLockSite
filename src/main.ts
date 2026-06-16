@@ -62,25 +62,7 @@ app.innerHTML = `
           </div>
           <div class="auth-sheet">
             <div class="touch-mark" aria-hidden="true">
-              <svg viewBox="0 0 64 64" focusable="false">
-                <defs>
-                  <linearGradient id="touchGradient" x1="10" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#ff8a5c" />
-                    <stop offset="0.48" stop-color="#ff5f57" />
-                    <stop offset="1" stop-color="#ff2d55" />
-                  </linearGradient>
-                </defs>
-                <path d="M17.5 28.5c0-8.1 6.5-14.6 14.5-14.6s14.5 6.5 14.5 14.6" />
-                <path d="M12.3 32.5c0-11 8.8-19.9 19.7-19.9s19.7 8.9 19.7 19.9" />
-                <path d="M22.6 31.7c0-5.3 4.2-9.6 9.4-9.6s9.4 4.3 9.4 9.6" />
-                <path d="M27.6 36.5c0-2.5 2-4.6 4.4-4.6s4.4 2.1 4.4 4.6c0 6.2-2.1 10.9-5 15.1" />
-                <path d="M20.3 39.2c.7 6.4 4.2 11.3 8.9 14.2" />
-                <path d="M43.8 39.1c-.5 5.1-1.9 9.6-4.8 14.2" />
-                <path d="M15.4 39.2c1.1 9.2 6.2 16.2 13.3 19.6" />
-                <path d="M48.6 39.1c-.6 7.7-3 14.2-7.5 19.6" />
-                <path d="M32 7.5c13.4 0 24.3 10.8 24.3 24.2" />
-                <path d="M7.7 31.7C7.7 18.3 18.6 7.5 32 7.5" />
-              </svg>
+              <img src="${assetBase}touch-id-logo.svg" alt="" width="52" height="52" />
             </div>
             <div>
               <span>Unlock Notion</span>
