@@ -42,19 +42,21 @@ const productSchema = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${canonicalUrl}shield.svg`} />
+    <meta property="og:image" content={`${canonicalUrl}og-image.png`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${canonicalUrl}shield.svg`} />
+    <meta name="twitter:image" content={`${canonicalUrl}og-image.png`} />
     <title>{title}</title>
-    <link rel="icon" href={asset("shield.svg")} />
+    <link rel="icon" type="image/png" href={asset("favicon.png")} />
+    <link rel="apple-touch-icon" href={asset("apple-touch-icon.png")} />
+    <link rel="manifest" href={asset("site.webmanifest")} />
     <script type="application/ld+json" set:html={JSON.stringify(productSchema).replace(/</g, "\\u003c")} />
   </head>
   <body>
     <header class="site-nav" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="AegisLock home">
-        <img src={asset("shield.svg")} alt="" width="34" height="34" />
+        <img src={asset("app-icon.png")} alt="" width="34" height="34" />
         <span>AegisLock</span>
       </a>
       <nav class="nav-links">
@@ -99,7 +101,7 @@ const productSchema = {
             </div>
             <div class="privacy-veil">
               <div class="veil-badge">
-                <img src={asset("shield.svg")} alt="" width="28" height="28" />
+                <img src={asset("app-icon.png")} alt="" width="28" height="28" />
                 <span>Hidden by AegisLock</span>
               </div>
             </div>
@@ -274,7 +276,7 @@ const productSchema = {
 
     <footer class="site-footer">
       <div class="brand footer-brand">
-        <img src={asset("shield.svg")} alt="" width="30" height="30" />
+        <img src={asset("app-icon.png")} alt="" width="30" height="30" />
         <span>AegisLock</span>
       </div>
       <p>Private Mac app protection. Honest security model. Local-first reports.</p>
