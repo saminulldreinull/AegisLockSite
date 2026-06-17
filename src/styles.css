@@ -679,14 +679,14 @@ em {
 .segmented-demo {
   min-height: 44px;
   display: grid;
-  grid-template-columns: minmax(112px, 1.2fr) repeat(3, minmax(58px, 0.8fr));
+  grid-template-columns: minmax(86px, 1.05fr) repeat(4, minmax(48px, 0.8fr));
   align-items: center;
   gap: 4px;
   padding: 5px;
   border-radius: 12px;
   background: #eef2f7;
   color: #596575;
-  font-size: clamp(13px, 1.15vw, 15px);
+  font-size: clamp(12px, 1vw, 14px);
   font-weight: 800;
 }
 
