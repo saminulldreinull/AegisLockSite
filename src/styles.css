@@ -577,11 +577,11 @@ em {
 
 .report-chip {
   position: absolute;
-  top: 94px;
+  top: 74px;
   right: 24px;
   bottom: auto;
-  width: min(290px, 44%);
-  padding: 18px;
+  width: min(270px, 40%);
+  padding: 14px 16px;
   opacity: 0;
   transform: translateY(-8px);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -596,8 +596,9 @@ em {
 
 .report-chip strong {
   display: block;
-  margin-top: 7px;
-  font-size: 18px;
+  margin-top: 5px;
+  font-size: 16px;
+  line-height: 1.18;
 }
 
 @keyframes touch-ridge-draw {
@@ -1033,7 +1034,7 @@ em {
   line-height: 1.45;
 }
 
-.site-footer div:last-child {
+.site-footer div:not(.brand) {
   display: flex;
   gap: 14px;
 }
@@ -1041,6 +1042,13 @@ em {
 .site-footer a {
   color: #d9e4f2;
   font-weight: 740;
+}
+
+.site-footer small {
+  max-width: 280px;
+  color: #6f7b8c;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 @media (max-width: 1120px) {
