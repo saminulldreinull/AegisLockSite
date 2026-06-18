@@ -212,7 +212,8 @@ em {
 }
 
 .touch-accent,
-.touch-inline {
+.touch-inline,
+.accent {
   color: var(--touch-2);
 }
 
