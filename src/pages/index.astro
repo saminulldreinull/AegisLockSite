@@ -32,6 +32,34 @@ const productSchema = {
     "Watchdog keepalive and restore checks"
   ]
 };
+
+// Fingerprint paths adapted from Pete Barr's public CodePen "Touch ID animation SVG & GSAP".
+// Public CodePen Pens are MIT licensed; see THIRD_PARTY_NOTICES.md.
+const touchIdRidges = [
+  "M41.25,202.56a133.24,133.24,0,0,1,12-87.36",
+  "M64.35,97.2A133.83,133.83,0,0,1,231.29,55.94",
+  "M249.3,66.59c27.1,19,54.14,52.1,57.94,112.11",
+  "M41.32,202.55q.58,2.88,1.28,5.71",
+  "M137.87,305.4a150.4,150.4,0,0,0,34.58-129.29",
+  "M120.57,299.47a134.66,134.66,0,0,0,29-45",
+  "M155.77,233.88a133.44,133.44,0,0,0,.28-54.46l-.12,0a16.81,16.81,0,1,1,33-6.65l-.05,0A167,167,0,0,1,156.6,309",
+  "M104.77,291.55a117.15,117.15,0,0,0,36.16-101.29",
+  "M139.59,169.27a33.53,33.53,0,0,1,65.7.21h0a184.88,184.88,0,0,1,3.67,36",
+  "M207.74,226.76a184.16,184.16,0,0,1-31,83.1",
+  "M90.48,281.9A100.44,100.44,0,0,0,123.26,186l-.09,0a50.28,50.28,0,0,1,53.18-60",
+  "M196.86,132.21a50.13,50.13,0,0,1,24.81,34h0A200.06,200.06,0,0,1,198,307.43",
+  "M77.78,270.71a84.19,84.19,0,0,0,25.09-34.61",
+  "M108.06,214.8a83.65,83.65,0,0,0-1.2-25.47l-.08,0a67,67,0,1,1,131.27-26.47h0a216.92,216.92,0,0,1,1.46,78.29",
+  "M235,262a217.64,217.64,0,0,1-14.58,39",
+  "M240.08,126.87a83.39,83.39,0,0,1,14.35,32.71h0a233.17,233.17,0,0,1-10.74,129.81",
+  "M137.49,100.06a83.81,83.81,0,0,1,88,11.35",
+  "M66.69,258.16a67,67,0,0,0,23.77-65.52H90.4a83.65,83.65,0,0,1,29.32-81.54",
+  "M57.25,244.28a50.28,50.28,0,0,0,16.82-48.34H74a101.09,101.09,0,0,1-1.92-15.87",
+  "M73.49,158.94a100.4,100.4,0,0,1,197.33-2.67h0q1.31,6.5,2.27,13",
+  "M275.33,190.34a249.37,249.37,0,0,1-7.93,80",
+  "M49.36,228.72a33.51,33.51,0,0,0,8.31-29.47h0A117.18,117.18,0,0,1,188.11,60",
+  "M208.07,64.55A117.06,117.06,0,0,1,287.2,153h0a267.44,267.44,0,0,1,3.29,86",
+];
 ---
 
 <!doctype html>
@@ -125,21 +153,22 @@ const productSchema = {
           </div>
 
           <div class="auth-card">
-            <div class="touch-animation" style={`--touch-mask: url("${asset("touch-id-logo.svg")}")`} aria-hidden="true">
-              <img class="touch-base" src={asset("touch-id-logo.svg")} alt="" width="66" height="66" />
-              <span class="touch-segment segment-1"></span>
-              <span class="touch-segment segment-2"></span>
-              <span class="touch-segment segment-3"></span>
-              <span class="touch-segment segment-4"></span>
-              <span class="touch-segment segment-5"></span>
-              <span class="touch-segment segment-6"></span>
-              <span class="touch-segment segment-7"></span>
-              <span class="touch-segment segment-8"></span>
-              <span class="touch-segment segment-9"></span>
-              <span class="touch-segment segment-10"></span>
-              <span class="touch-segment segment-11"></span>
-              <span class="touch-segment segment-12"></span>
-              <span class="touch-complete"></span>
+            <div class="touch-animation" aria-hidden="true">
+              <svg class="touch-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 341 349" role="img">
+                <defs>
+                  <linearGradient id="hero-touch-gradient" x1="170.5" y1="349" x2="170.5" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0.12" stop-color="#d00051" />
+                    <stop offset="0.86" stop-color="#ff2ef4" />
+                  </linearGradient>
+                  <mask id="hero-touch-mask" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8">
+                    {touchIdRidges.map((ridge, index) => <path d={ridge} pathLength="100" style={`--ridge-index: ${index}`} />)}
+                  </mask>
+                </defs>
+                <g class="touch-base" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8">
+                  {touchIdRidges.map((ridge) => <path d={ridge} />)}
+                </g>
+                <rect class="touch-complete" width="341" height="349" fill="url(#hero-touch-gradient)" mask="url(#hero-touch-mask)" />
+              </svg>
             </div>
             <div>
               <span>Unlock private app</span>
@@ -402,7 +431,7 @@ const productSchema = {
           demo.classList.add("is-unlocked");
           authButton.disabled = false;
           authButton.textContent = "Lock demo again";
-        }, prefersReducedMotion.matches ? 180 : 1550);
+        }, prefersReducedMotion.matches ? 180 : 1900);
       }
 
       authButton?.addEventListener("click", unlockHeroDemo);

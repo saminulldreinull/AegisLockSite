@@ -484,61 +484,21 @@ em {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.hero-demo.is-authenticating .segment-1 {
-  animation: ridge-reveal 280ms ease 60ms both;
+.hero-demo.is-authenticating .touch-svg {
+  transform: scale(0.985);
 }
 
-.hero-demo.is-authenticating .segment-2 {
-  animation: ridge-reveal 280ms ease 140ms both;
+.hero-demo.is-authenticating #hero-touch-mask path {
+  animation: touch-ridge-draw 980ms cubic-bezier(0.18, 0.84, 0.22, 1) both;
+  animation-delay: calc(var(--ridge-index) * 38ms);
 }
 
-.hero-demo.is-authenticating .segment-3 {
-  animation: ridge-reveal 300ms ease 220ms both;
+.hero-demo.is-authenticating .touch-base {
+  opacity: 0.72;
 }
 
-.hero-demo.is-authenticating .segment-4 {
-  animation: ridge-reveal 300ms ease 320ms both;
-}
-
-.hero-demo.is-authenticating .segment-5 {
-  animation: ridge-reveal 320ms ease 430ms both;
-}
-
-.hero-demo.is-authenticating .segment-6 {
-  animation: ridge-reveal 320ms ease 540ms both;
-}
-
-.hero-demo.is-authenticating .segment-7 {
-  animation: ridge-reveal 320ms ease 620ms both;
-}
-
-.hero-demo.is-authenticating .segment-8 {
-  animation: ridge-reveal 330ms ease 700ms both;
-}
-
-.hero-demo.is-authenticating .segment-9 {
-  animation: ridge-reveal 330ms ease 780ms both;
-}
-
-.hero-demo.is-authenticating .segment-10 {
-  animation: ridge-reveal 340ms ease 860ms both;
-}
-
-.hero-demo.is-authenticating .segment-11 {
-  animation: ridge-reveal 340ms ease 940ms both;
-}
-
-.hero-demo.is-authenticating .segment-12 {
-  animation: ridge-reveal 340ms ease 1020ms both;
-}
-
-.hero-demo.is-authenticating .touch-complete {
-  animation: touch-complete 320ms ease 1220ms forwards;
-}
-
-.hero-demo.is-unlocked .touch-complete {
-  opacity: 1;
-  transform: scale(1);
+.hero-demo.is-unlocked #hero-touch-mask path {
+  stroke-dashoffset: 0;
 }
 
 .hero-demo.is-unlocked .touch-base {
@@ -551,81 +511,29 @@ em {
   height: 66px;
 }
 
-.touch-animation img {
+.touch-svg {
+  display: block;
   width: 66px;
   height: 66px;
+  overflow: visible;
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 0 5px rgba(255, 45, 146, 0.14));
+  transition: transform 180ms ease;
 }
 
-.touch-base {
-  opacity: 0.92;
-  filter: brightness(0) invert(1);
-  transition: opacity 180ms ease;
+.touch-svg .touch-base {
+  opacity: 0.96;
+  transition: opacity 260ms ease;
 }
 
-.touch-segment,
-.touch-complete {
-  position: absolute;
-  inset: 0;
-  display: block;
-  pointer-events: none;
-  -webkit-mask: var(--touch-mask) center / contain no-repeat;
-  mask: var(--touch-mask) center / contain no-repeat;
+#hero-touch-mask path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
 }
 
-.touch-segment,
-.touch-complete {
-  opacity: 0;
-  transform: scale(0.99);
-  background: linear-gradient(180deg, var(--touch) 0%, var(--touch-2) 100%);
-  filter: drop-shadow(0 0 5px rgba(255, 45, 146, 0.24));
-}
-
-.segment-1 {
-  clip-path: inset(38% 39% 27% 38%);
-}
-
-.segment-2 {
-  clip-path: inset(30% 30% 38% 30%);
-}
-
-.segment-3 {
-  clip-path: inset(12% 23% 69% 21%);
-}
-
-.segment-4 {
-  clip-path: inset(20% 0 26% 62%);
-}
-
-.segment-5 {
-  clip-path: inset(28% 58% 28% 0);
-}
-
-.segment-6 {
-  clip-path: inset(54% 8% 0 48%);
-}
-
-.segment-7 {
-  clip-path: inset(62% 54% 0 8%);
-}
-
-.segment-8 {
-  clip-path: inset(16% 55% 50% 5%);
-}
-
-.segment-9 {
-  clip-path: inset(40% 11% 40% 52%);
-}
-
-.segment-10 {
-  clip-path: inset(56% 34% 4% 34%);
-}
-
-.segment-11 {
-  clip-path: inset(0 9% 80% 8%);
-}
-
-.segment-12 {
-  clip-path: inset(72% 20% 0 22%);
+.touch-svg .touch-complete {
+  opacity: 1;
+  filter: drop-shadow(0 0 5px rgba(255, 45, 146, 0.3));
 }
 
 .auth-card span,
@@ -691,27 +599,13 @@ em {
   font-size: 18px;
 }
 
-@keyframes ridge-reveal {
-  0% {
-    opacity: 0;
-    transform: scale(0.985);
+@keyframes touch-ridge-draw {
+  from {
+    stroke-dashoffset: 100;
   }
 
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes touch-complete {
-  0% {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
@@ -1273,7 +1167,7 @@ em {
   }
 
   .touch-animation,
-  .touch-animation img {
+  .touch-svg {
     width: 52px;
     height: 52px;
   }
@@ -1369,7 +1263,7 @@ em {
   }
 
   .touch-animation,
-  .touch-animation img {
+  .touch-svg {
     width: 58px;
     height: 58px;
   }
