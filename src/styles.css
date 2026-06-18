@@ -422,9 +422,7 @@ em {
   text-align: center;
   background: rgba(0, 0, 0, 0.84);
   backdrop-filter: blur(18px);
-  transition:
-    opacity 520ms ease,
-    visibility 520ms ease;
+  transition: opacity 320ms ease;
 }
 
 .shield-layer img {
@@ -482,20 +480,45 @@ em {
     0 0 0 1px rgba(255, 45, 146, 0.14);
 }
 
-.hero-demo.is-authenticating .touch-fill {
-  animation: touch-fill 1400ms steps(8, end) forwards;
-}
-
-.hero-demo.is-authenticating .touch-animation::after {
-  animation: touch-scan 1400ms ease-out forwards;
-}
-
-.hero-demo.is-unlocked .touch-fill {
-  clip-path: inset(0 0 0 0);
-}
-
 .hero-demo.is-unlocked .auth-card button {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.hero-demo.is-authenticating .segment-1 {
+  animation: ridge-pulse 520ms ease 70ms both;
+}
+
+.hero-demo.is-authenticating .segment-2 {
+  animation: ridge-pulse 560ms ease 180ms both;
+}
+
+.hero-demo.is-authenticating .segment-3 {
+  animation: ridge-pulse 600ms ease 310ms both;
+}
+
+.hero-demo.is-authenticating .segment-4 {
+  animation: ridge-pulse 640ms ease 470ms both;
+}
+
+.hero-demo.is-authenticating .segment-5 {
+  animation: ridge-pulse 680ms ease 650ms both;
+}
+
+.hero-demo.is-authenticating .segment-6 {
+  animation: ridge-pulse 720ms ease 860ms both;
+}
+
+.hero-demo.is-authenticating .touch-complete {
+  animation: touch-complete 420ms ease 1120ms forwards;
+}
+
+.hero-demo.is-authenticating .touch-sweep {
+  animation: touch-sweep 1280ms cubic-bezier(0.2, 0.9, 0.2, 1) 80ms forwards;
+}
+
+.hero-demo.is-unlocked .touch-complete {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .touch-animation {
@@ -510,26 +533,60 @@ em {
 }
 
 .touch-base {
-  opacity: 0.34;
-  filter: grayscale(1) brightness(1.65);
+  opacity: 0.22;
+  filter: grayscale(1) brightness(1.8);
 }
 
-.touch-fill {
+.touch-segment,
+.touch-complete,
+.touch-sweep {
   position: absolute;
   inset: 0;
   display: block;
-  overflow: hidden;
-  clip-path: inset(100% 0 0 0);
+  pointer-events: none;
+  -webkit-mask: var(--touch-mask) center / contain no-repeat;
+  mask: var(--touch-mask) center / contain no-repeat;
 }
 
-.touch-animation::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
+.touch-segment,
+.touch-complete {
   opacity: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(255, 45, 146, 0.28) 48%, transparent 100%);
-  transform: translateY(-70%);
+  transform: scale(0.975);
+  background: linear-gradient(180deg, var(--touch) 0%, var(--touch-2) 100%);
+  filter: drop-shadow(0 0 10px rgba(255, 45, 146, 0.36));
+}
+
+.segment-1 {
+  clip-path: inset(45% 38% 31% 38%);
+}
+
+.segment-2 {
+  clip-path: inset(35% 30% 25% 30%);
+}
+
+.segment-3 {
+  clip-path: inset(28% 22% 19% 22%);
+}
+
+.segment-4 {
+  clip-path: inset(20% 16% 13% 16%);
+}
+
+.segment-5 {
+  clip-path: inset(12% 9% 7% 9%);
+}
+
+.segment-6 {
+  clip-path: inset(0 0 0 0);
+}
+
+.touch-sweep {
+  opacity: 0;
+  background:
+    linear-gradient(180deg, transparent 0%, transparent 28%, rgba(255, 255, 255, 0.12) 42%, rgba(255, 45, 146, 0.58) 50%, transparent 64%, transparent 100%);
+  background-size: 100% 230%;
+  background-position: 50% 0%;
+  filter: drop-shadow(0 0 10px rgba(255, 45, 146, 0.34));
 }
 
 .auth-card span,
@@ -595,30 +652,54 @@ em {
   font-size: 18px;
 }
 
-@keyframes touch-fill {
-  from {
-    clip-path: inset(100% 0 0 0);
-  }
-
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes touch-scan {
+@keyframes ridge-pulse {
   0% {
     opacity: 0;
-    transform: translateY(-74%);
+    transform: scale(0.94);
   }
 
-  18%,
-  72% {
+  32% {
     opacity: 1;
+    transform: scale(1.02);
+  }
+
+  72% {
+    opacity: 0.88;
+    transform: scale(1);
   }
 
   100% {
     opacity: 0;
-    transform: translateY(72%);
+    transform: scale(1);
+  }
+}
+
+@keyframes touch-complete {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes touch-sweep {
+  0% {
+    opacity: 0;
+    background-position: 50% 0%;
+  }
+
+  16%,
+  74% {
+    opacity: 0.86;
+  }
+
+  100% {
+    opacity: 0;
+    background-position: 50% 100%;
   }
 }
 

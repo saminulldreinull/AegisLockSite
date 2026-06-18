@@ -125,9 +125,16 @@ const productSchema = {
           </div>
 
           <div class="auth-card">
-            <div class="touch-animation" aria-hidden="true">
+            <div class="touch-animation" style={`--touch-mask: url("${asset("touch-id-logo.svg")}")`} aria-hidden="true">
               <img class="touch-base" src={asset("touch-id-logo.svg")} alt="" width="66" height="66" />
-              <span class="touch-fill"><img src={asset("touch-id-logo.svg")} alt="" width="66" height="66" /></span>
+              <span class="touch-segment segment-1"></span>
+              <span class="touch-segment segment-2"></span>
+              <span class="touch-segment segment-3"></span>
+              <span class="touch-segment segment-4"></span>
+              <span class="touch-segment segment-5"></span>
+              <span class="touch-segment segment-6"></span>
+              <span class="touch-complete"></span>
+              <span class="touch-sweep"></span>
             </div>
             <div>
               <span>Unlock private app</span>
