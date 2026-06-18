@@ -345,49 +345,70 @@ em {
   grid-template-columns: 168px minmax(0, 1fr);
   gap: 28px;
   padding: 24px;
-  opacity: 0.18;
+  opacity: 0.16;
   filter: blur(2px);
+  transition:
+    opacity 520ms ease,
+    filter 520ms ease;
 }
 
-.fake-sidebar,
-.fake-document {
+.fake-sidebar {
   display: grid;
   align-content: start;
-  gap: 13px;
+  gap: 10px;
+  padding: 18px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  color: #aeb8c7;
 }
 
-.fake-sidebar i,
-.fake-document span,
-.fake-document b {
-  display: block;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.24);
-}
-
-.fake-sidebar i {
-  height: 34px;
-}
-
-.fake-document b {
-  width: 64%;
-  height: 44px;
+.fake-sidebar strong {
   margin-bottom: 8px;
+  color: #f6f8fb;
+  font-size: 18px;
 }
 
-.fake-document span {
-  height: 18px;
+.fake-sidebar span {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+  font-weight: 720;
 }
 
-.fake-document span:nth-child(3) {
-  width: 86%;
+.journal-entry {
+  display: grid;
+  align-content: center;
+  gap: 14px;
+  max-width: 420px;
+  color: #e9eef7;
 }
 
-.fake-document span:nth-child(4) {
-  width: 74%;
+.journal-entry span {
+  color: var(--blue-soft);
+  font-size: 12px;
+  font-weight: 840;
+  text-transform: uppercase;
 }
 
-.fake-document span:nth-child(5) {
-  width: 58%;
+.journal-entry h3 {
+  margin: 0;
+  font-size: 38px;
+}
+
+.journal-entry p,
+.journal-entry li {
+  color: #bcc6d3;
+  line-height: 1.5;
+}
+
+.journal-entry ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
 }
 
 .shield-layer {
@@ -401,6 +422,9 @@ em {
   text-align: center;
   background: rgba(0, 0, 0, 0.84);
   backdrop-filter: blur(18px);
+  transition:
+    opacity 520ms ease,
+    visibility 520ms ease;
 }
 
 .shield-layer img {
@@ -434,6 +458,78 @@ em {
   background: rgba(16, 19, 27, 0.93);
   box-shadow: 0 26px 76px rgba(0, 0, 0, 0.46);
   backdrop-filter: blur(26px) saturate(1.2);
+}
+
+.hero-demo.is-unlocked .fake-app {
+  opacity: 1;
+  filter: blur(0);
+}
+
+.hero-demo.is-unlocked .shield-layer {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.hero-demo.is-unlocked .report-chip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-demo.is-authenticating .auth-card {
+  border-color: rgba(255, 45, 146, 0.42);
+  box-shadow:
+    0 26px 76px rgba(0, 0, 0, 0.46),
+    0 0 0 1px rgba(255, 45, 146, 0.14);
+}
+
+.hero-demo.is-authenticating .touch-fill {
+  animation: touch-fill 1400ms steps(8, end) forwards;
+}
+
+.hero-demo.is-authenticating .touch-animation::after {
+  animation: touch-scan 1400ms ease-out forwards;
+}
+
+.hero-demo.is-unlocked .touch-fill {
+  clip-path: inset(0 0 0 0);
+}
+
+.hero-demo.is-unlocked .auth-card button {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.touch-animation {
+  position: relative;
+  width: 66px;
+  height: 66px;
+}
+
+.touch-animation img {
+  width: 66px;
+  height: 66px;
+}
+
+.touch-base {
+  opacity: 0.34;
+  filter: grayscale(1) brightness(1.65);
+}
+
+.touch-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+}
+
+.touch-animation::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  opacity: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 45, 146, 0.28) 48%, transparent 100%);
+  transform: translateY(-70%);
 }
 
 .auth-card span,
@@ -481,17 +577,49 @@ em {
   bottom: auto;
   width: min(290px, 44%);
   padding: 18px;
+  opacity: 0;
+  transform: translateY(-8px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   background: rgba(10, 13, 19, 0.88);
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.36);
   backdrop-filter: blur(22px);
+  transition:
+    opacity 320ms ease 80ms,
+    transform 320ms ease 80ms;
 }
 
 .report-chip strong {
   display: block;
   margin-top: 7px;
   font-size: 18px;
+}
+
+@keyframes touch-fill {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes touch-scan {
+  0% {
+    opacity: 0;
+    transform: translateY(-74%);
+  }
+
+  18%,
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(72%);
+  }
 }
 
 .section {
@@ -1051,7 +1179,8 @@ em {
     border-radius: 14px;
   }
 
-  .auth-card img {
+  .touch-animation,
+  .touch-animation img {
     width: 52px;
     height: 52px;
   }
@@ -1146,7 +1275,8 @@ em {
     grid-template-columns: 1fr;
   }
 
-  .auth-card img {
+  .touch-animation,
+  .touch-animation img {
     width: 58px;
     height: 58px;
   }

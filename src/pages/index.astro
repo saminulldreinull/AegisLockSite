@@ -99,13 +99,23 @@ const productSchema = {
               <b>Notion</b>
             </div>
             <div class="fake-app" aria-hidden="true">
-              <div class="fake-sidebar">
-                <i></i><i></i><i></i><i></i>
-              </div>
-              <div class="fake-document">
-                <b></b>
-                <span></span><span></span><span></span><span></span><span></span>
-              </div>
+              <aside class="fake-sidebar">
+                <strong>Private</strong>
+                <span>Journal</span>
+                <span>Ideas</span>
+                <span>Letters</span>
+                <span>Archive</span>
+              </aside>
+              <article class="journal-entry">
+                <span>Daily Journal</span>
+                <h3>Morning notes</h3>
+                <p>Keep this page private while Codex runs, downloads continue, and the Mac stays awake.</p>
+                <ul>
+                  <li>Finish assignment draft</li>
+                  <li>Review messages later</li>
+                  <li>Do not leave private notes visible</li>
+                </ul>
+              </article>
             </div>
             <div class="shield-layer">
               <img src={asset("app-icon.png")} alt="" width="74" height="74" />
@@ -115,13 +125,16 @@ const productSchema = {
           </div>
 
           <div class="auth-card">
-            <img src={asset("touch-id-logo.svg")} alt="" width="66" height="66" />
+            <div class="touch-animation" aria-hidden="true">
+              <img class="touch-base" src={asset("touch-id-logo.svg")} alt="" width="66" height="66" />
+              <span class="touch-fill"><img src={asset("touch-id-logo.svg")} alt="" width="66" height="66" /></span>
+            </div>
             <div>
               <span>Unlock private app</span>
               <strong><span class="touch-inline">Touch ID</span> or Mac password required</strong>
               <p>Safe Hide keeps the app alive. Nothing quits.</p>
             </div>
-            <button type="button">Authenticate</button>
+            <button type="button" aria-live="polite">Authenticate</button>
           </div>
 
           <div class="report-chip">
@@ -330,6 +343,9 @@ const productSchema = {
 
     <script>
       const demo = document.querySelector(".hero-demo");
+      const authButton = document.querySelector(".auth-card button");
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let unlockTimer;
 
       window.addEventListener("pointermove", (event) => {
         if (!demo || window.matchMedia("(max-width: 920px)").matches) {
@@ -340,6 +356,44 @@ const productSchema = {
         const y = (event.clientY / window.innerHeight - 0.5) * 6;
         demo.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
+
+      function resetHeroDemo() {
+        if (!demo || !authButton) {
+          return;
+        }
+
+        window.clearTimeout(unlockTimer);
+        demo.classList.remove("is-authenticating", "is-unlocked");
+        authButton.disabled = false;
+        authButton.textContent = "Authenticate";
+      }
+
+      function unlockHeroDemo() {
+        if (!demo || !authButton) {
+          return;
+        }
+
+        if (demo.classList.contains("is-unlocked")) {
+          resetHeroDemo();
+          return;
+        }
+
+        window.clearTimeout(unlockTimer);
+        demo.classList.remove("is-unlocked", "is-authenticating");
+        demo.getBoundingClientRect();
+        demo.classList.add("is-authenticating");
+        authButton.disabled = true;
+        authButton.textContent = "Reading Touch ID...";
+
+        unlockTimer = window.setTimeout(() => {
+          demo.classList.remove("is-authenticating");
+          demo.classList.add("is-unlocked");
+          authButton.disabled = false;
+          authButton.textContent = "Lock demo again";
+        }, prefersReducedMotion.matches ? 180 : 1550);
+      }
+
+      authButton?.addEventListener("click", unlockHeroDemo);
     </script>
   </body>
 </html>
