@@ -570,7 +570,8 @@ em {
   border: 0;
   border-radius: 8px;
   color: #fff;
-  background: var(--blue);
+  background: linear-gradient(180deg, var(--touch-2) 0%, var(--touch) 100%);
+  box-shadow: 0 14px 34px rgba(255, 45, 146, 0.28);
   font-weight: 820;
 }
 
