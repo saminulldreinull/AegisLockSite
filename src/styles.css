@@ -485,40 +485,64 @@ em {
 }
 
 .hero-demo.is-authenticating .segment-1 {
-  animation: ridge-pulse 520ms ease 70ms both;
+  animation: ridge-reveal 280ms ease 60ms both;
 }
 
 .hero-demo.is-authenticating .segment-2 {
-  animation: ridge-pulse 560ms ease 180ms both;
+  animation: ridge-reveal 280ms ease 140ms both;
 }
 
 .hero-demo.is-authenticating .segment-3 {
-  animation: ridge-pulse 600ms ease 310ms both;
+  animation: ridge-reveal 300ms ease 220ms both;
 }
 
 .hero-demo.is-authenticating .segment-4 {
-  animation: ridge-pulse 640ms ease 470ms both;
+  animation: ridge-reveal 300ms ease 320ms both;
 }
 
 .hero-demo.is-authenticating .segment-5 {
-  animation: ridge-pulse 680ms ease 650ms both;
+  animation: ridge-reveal 320ms ease 430ms both;
 }
 
 .hero-demo.is-authenticating .segment-6 {
-  animation: ridge-pulse 720ms ease 860ms both;
+  animation: ridge-reveal 320ms ease 540ms both;
+}
+
+.hero-demo.is-authenticating .segment-7 {
+  animation: ridge-reveal 320ms ease 620ms both;
+}
+
+.hero-demo.is-authenticating .segment-8 {
+  animation: ridge-reveal 330ms ease 700ms both;
+}
+
+.hero-demo.is-authenticating .segment-9 {
+  animation: ridge-reveal 330ms ease 780ms both;
+}
+
+.hero-demo.is-authenticating .segment-10 {
+  animation: ridge-reveal 340ms ease 860ms both;
+}
+
+.hero-demo.is-authenticating .segment-11 {
+  animation: ridge-reveal 340ms ease 940ms both;
+}
+
+.hero-demo.is-authenticating .segment-12 {
+  animation: ridge-reveal 340ms ease 1020ms both;
 }
 
 .hero-demo.is-authenticating .touch-complete {
-  animation: touch-complete 420ms ease 1120ms forwards;
-}
-
-.hero-demo.is-authenticating .touch-sweep {
-  animation: touch-sweep 1280ms cubic-bezier(0.2, 0.9, 0.2, 1) 80ms forwards;
+  animation: touch-complete 320ms ease 1220ms forwards;
 }
 
 .hero-demo.is-unlocked .touch-complete {
   opacity: 1;
   transform: scale(1);
+}
+
+.hero-demo.is-unlocked .touch-base {
+  opacity: 0;
 }
 
 .touch-animation {
@@ -533,13 +557,13 @@ em {
 }
 
 .touch-base {
-  opacity: 0.22;
-  filter: grayscale(1) brightness(1.8);
+  opacity: 0.92;
+  filter: brightness(0) invert(1);
+  transition: opacity 180ms ease;
 }
 
 .touch-segment,
-.touch-complete,
-.touch-sweep {
+.touch-complete {
   position: absolute;
   inset: 0;
   display: block;
@@ -551,42 +575,57 @@ em {
 .touch-segment,
 .touch-complete {
   opacity: 0;
-  transform: scale(0.975);
+  transform: scale(0.99);
   background: linear-gradient(180deg, var(--touch) 0%, var(--touch-2) 100%);
-  filter: drop-shadow(0 0 10px rgba(255, 45, 146, 0.36));
+  filter: drop-shadow(0 0 5px rgba(255, 45, 146, 0.24));
 }
 
 .segment-1 {
-  clip-path: inset(45% 38% 31% 38%);
+  clip-path: inset(38% 39% 27% 38%);
 }
 
 .segment-2 {
-  clip-path: inset(35% 30% 25% 30%);
+  clip-path: inset(30% 30% 38% 30%);
 }
 
 .segment-3 {
-  clip-path: inset(28% 22% 19% 22%);
+  clip-path: inset(12% 23% 69% 21%);
 }
 
 .segment-4 {
-  clip-path: inset(20% 16% 13% 16%);
+  clip-path: inset(20% 0 26% 62%);
 }
 
 .segment-5 {
-  clip-path: inset(12% 9% 7% 9%);
+  clip-path: inset(28% 58% 28% 0);
 }
 
 .segment-6 {
-  clip-path: inset(0 0 0 0);
+  clip-path: inset(54% 8% 0 48%);
 }
 
-.touch-sweep {
-  opacity: 0;
-  background:
-    linear-gradient(180deg, transparent 0%, transparent 28%, rgba(255, 255, 255, 0.12) 42%, rgba(255, 45, 146, 0.58) 50%, transparent 64%, transparent 100%);
-  background-size: 100% 230%;
-  background-position: 50% 0%;
-  filter: drop-shadow(0 0 10px rgba(255, 45, 146, 0.34));
+.segment-7 {
+  clip-path: inset(62% 54% 0 8%);
+}
+
+.segment-8 {
+  clip-path: inset(16% 55% 50% 5%);
+}
+
+.segment-9 {
+  clip-path: inset(40% 11% 40% 52%);
+}
+
+.segment-10 {
+  clip-path: inset(56% 34% 4% 34%);
+}
+
+.segment-11 {
+  clip-path: inset(0 9% 80% 8%);
+}
+
+.segment-12 {
+  clip-path: inset(72% 20% 0 22%);
 }
 
 .auth-card span,
@@ -652,24 +691,14 @@ em {
   font-size: 18px;
 }
 
-@keyframes ridge-pulse {
+@keyframes ridge-reveal {
   0% {
     opacity: 0;
-    transform: scale(0.94);
-  }
-
-  32% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-
-  72% {
-    opacity: 0.88;
-    transform: scale(1);
+    transform: scale(0.985);
   }
 
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: scale(1);
   }
 }
@@ -683,23 +712,6 @@ em {
   100% {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@keyframes touch-sweep {
-  0% {
-    opacity: 0;
-    background-position: 50% 0%;
-  }
-
-  16%,
-  74% {
-    opacity: 0.86;
-  }
-
-  100% {
-    opacity: 0;
-    background-position: 50% 100%;
   }
 }
 
